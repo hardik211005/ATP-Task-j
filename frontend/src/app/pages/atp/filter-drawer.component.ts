@@ -26,8 +26,8 @@ import { IconComponent } from '../../shared/ui';
           </select><app-icon name="down" [size]="18" />
         </div>
         <label>Timestamp</label>
-        <div class="select date">
-          <input type="date" [(ngModel)]="v.date" /><app-icon name="calendar" />
+        <div class="select date" [class.empty]="!v.date">
+          <input type="date" [(ngModel)]="v.date" aria-label="Timestamp" /><span class="ph">Select Timestamp</span><app-icon name="calendar" />
         </div>
         <div class="drawer-actions">
           <button class="btn ghost" (click)="closed.emit()">Cancel</button>

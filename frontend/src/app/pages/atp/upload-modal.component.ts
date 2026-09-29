@@ -16,7 +16,7 @@ let seq = 0;
         <div class="drawer-head"><h4>Upload file</h4><button class="icon-btn plain" (click)="closed.emit()" aria-label="Close"><app-icon name="close" [size]="18" /></button></div>
         <p class="muted">Upload and attach files to continue</p>
         <div class="drop" (click)="input.click()" (dragover)="$event.preventDefault()" (drop)="onDrop($event)">
-          <div class="drop-ic"><app-icon name="upload" /></div>
+          <div class="drop-ic"><app-icon name="upload" [size]="20" /></div>
           <div><span class="link">Click to upload</span> or drag and drop</div>
           <small>Excel, CSV (SAP ID &amp; Band (Mhz))</small>
           <input #input type="file" hidden multiple accept=".xls,.xlsx,.csv" (change)="add(input.files); input.value = ''" />
@@ -25,7 +25,7 @@ let seq = 0;
         <div class="file-list">
           @for (i of items; track i.id) {
             <div class="file-row" [class.done]="i.progress >= 100">
-              <app-file-icon [kind]="kind(i.file.name)" />
+              <span class="file-ic"><app-file-icon [kind]="kind(i.file.name)" [size]="20" /></span>
               <div class="file-mid">
                 <b>{{ i.file.name }}</b>
                 <small>{{ size(i.file.size) }}</small>

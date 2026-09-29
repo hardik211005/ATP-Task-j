@@ -11,7 +11,7 @@ import { IconComponent, JioLogoComponent } from '../shared/ui';
     <div class="shell" [class.collapsed]="collapsed">
       <aside class="sidebar">
         <div class="brand">
-          <app-jio-logo [size]="42" />
+          <app-jio-logo [size]="50" variant="white" />
           <span>5G Site Planning and Engineering Product</span>
         </div>
         <nav>

@@ -88,11 +88,12 @@ const pad = (n: number) => String(n).padStart(2, '0');
         </div>
       </div>
 
-      @if (showUpload) { <app-upload-modal (closed)="showUpload = false" (done)="onUploaded()" /> }
-      @if (showFilter) {
-        <app-filter-drawer [sapOptions]="sapOptions" [bandOptions]="bandOptions" [value]="cur.filter" (closed)="showFilter = false" (apply)="applyFilter($event)" />
-      }
     </div>
+
+    @if (showUpload) { <app-upload-modal (closed)="showUpload = false" (done)="onUploaded()" /> }
+    @if (showFilter) {
+      <app-filter-drawer [sapOptions]="sapOptions" [bandOptions]="bandOptions" [value]="cur.filter" (closed)="showFilter = false" (apply)="applyFilter($event)" />
+    }
   `,
 })
 export class AtpComponent implements OnInit, OnDestroy {
