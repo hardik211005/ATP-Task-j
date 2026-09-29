@@ -33,3 +33,95 @@ tbody tr:hover { background: var(--row-hover); }
   text-align: center;
   width: 90px;
 }
+
+// ---- phones: each row becomes a small card, label on the left, value on the right ----
+@media (max-width: 640px) {
+  .table-wrap { padding: 0 10px; }
+
+  table,
+  tbody,
+  tr,
+  td {
+    display: block;
+    min-width: 0;
+  }
+
+  thead { display: none; }
+
+  // the ATP table keeps a "select all" bar
+  thead.sel {
+    display: block;
+    padding: 0 4px 10px;
+
+    tr { display: block; }
+    th { display: none; }
+
+    th.cbcell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: auto;
+      padding: 0;
+      border: 0;
+
+      &::after {
+        content: 'Select all on this page';
+        font-size: 13px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  tbody tr {
+    position: relative;
+    margin: 0 0 10px;
+    padding: 6px 14px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+
+    &:has(.cbcell) { padding-left: 46px; }
+  }
+
+  td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    height: auto;
+    padding: 7px 0;
+    border: 0;
+    text-align: right;
+
+    &::before {
+      content: attr(data-label);
+      flex: none;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      text-align: left;
+    }
+
+    &.cbcell {
+      position: absolute;
+      left: 14px;
+      top: 12px;
+      width: auto;
+      padding: 0;
+
+      &::before { display: none; }
+    }
+
+    &.ac {
+      width: auto;
+      text-align: right;
+    }
+
+    &.empty {
+      display: block;
+      text-align: center;
+
+      &::before { display: none; }
+    }
+  }
+}

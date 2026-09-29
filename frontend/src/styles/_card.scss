@@ -48,3 +48,24 @@
     border-color: var(--blue);
   }
 }
+
+@media (max-width: 768px) {
+  .card {
+    margin: 0 8px 12px;
+    border-radius: 16px;
+    padding: 14px 0 10px;
+  }
+
+  .card-head {
+    padding: 0 14px 12px;
+    gap: 12px;
+  }
+
+  .tabs { gap: 18px; }
+
+  .tab {
+    font-size: 18px;
+
+    em { font-size: 11px; }
+  }
+}

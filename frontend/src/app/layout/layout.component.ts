@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from '../core/auth.service';
 import { ThemeService } from '../core/theme.service';
@@ -16,8 +16,17 @@ export class LayoutComponent {
   auth = inject(AuthService);
   theme = inject(ThemeService);
   router = inject(Router);
-  collapsed = false;
+  collapsed = false;   // desktop: icon-only sidebar
+  navOpen = false;     // phone: slide-in sidebar
   menu = false;
+  // click anywhere outside the profile area closes the menu (profile click stops propagation)
+  @HostListener('document:click') closeMenu() { this.menu = false; }
+  // hamburger: slide-in menu on phones, collapse to icons on larger screens
+  toggleNav() {
+    if (window.matchMedia('(max-width: 768px)').matches) this.navOpen = !this.navOpen;
+    else this.collapsed = !this.collapsed;
+  }
+  @HostListener('document:keydown.escape') closeNav() { this.navOpen = false; this.menu = false; }
   get title() { return this.router.url.startsWith('/users') ? 'User Management' : 'ATP 11B'; }
   get initials() {
     return (this.auth.user()?.name || '').split(/\s+/).map((s) => s[0]).join('').slice(0, 2).toUpperCase();

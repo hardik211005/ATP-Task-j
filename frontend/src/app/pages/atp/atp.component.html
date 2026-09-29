@@ -34,7 +34,7 @@
 
   <div class="table-wrap">
     <table>
-      <thead>
+      <thead class="sel">
         <tr>
           <th class="cbcell"><input type="checkbox" class="cb" [checked]="allOnPage" [indeterminate]="someOnPage && !allOnPage" (change)="toggleAll()" aria-label="Select all on page" /></th>
           <th>Sr. No.</th><th>Sap ID</th><th>Band</th><th>File Type</th><th>Initiated</th><th>User Name</th><th class="ac">Actions</th>
@@ -44,13 +44,13 @@
         @for (t of data.items; track t.id; let i = $index) {
           <tr [class.selected]="cur.sel.has(t.id)">
             <td class="cbcell"><input type="checkbox" class="cb" [checked]="cur.sel.has(t.id)" (change)="toggle(t.id)" [attr.aria-label]="'Select row ' + (start + i + 1)" /></td>
-            <td>{{ start + i + 1 }}</td>
-            <td>{{ t.sapId }}</td>
-            <td>{{ t.bands }}</td>
-            <td><span class="ftypes">@for (f of t.files; track f.id) { <app-file-icon [kind]="f.type.toUpperCase()" /> }</span></td>
-            <td>{{ t.initiated }}</td>
-            <td>{{ t.user }}</td>
-            <td class="ac"><button class="icon-btn plain" (click)="download(t)" aria-label="Download"><app-icon name="download" /></button></td>
+            <td data-label="Sr. No.">{{ start + i + 1 }}</td>
+            <td data-label="Sap ID">{{ t.sapId }}</td>
+            <td data-label="Band">{{ t.bands }}</td>
+            <td data-label="File Type"><span class="ftypes">@for (f of t.files; track f.id) { <app-file-icon [kind]="f.type.toUpperCase()" /> }</span></td>
+            <td data-label="Initiated">{{ t.initiated }}</td>
+            <td data-label="User Name">{{ t.user }}</td>
+            <td class="ac" data-label="Actions"><button class="icon-btn plain" (click)="download(t)" aria-label="Download"><app-icon name="download" /></button></td>
           </tr>
         } @empty {
           <tr><td colspan="8" class="empty">{{ emptyText }}</td></tr>

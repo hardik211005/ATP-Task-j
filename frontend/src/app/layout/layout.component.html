@@ -1,24 +1,27 @@
-<div class="shell" [class.collapsed]="collapsed">
+<div class="shell" [class.collapsed]="collapsed" [class.nav-open]="navOpen">
   <aside class="sidebar">
     <div class="brand">
       <app-jio-logo [size]="50" variant="white" />
       <span>5G Site Planning and Engineering Product</span>
     </div>
     <nav>
-      <a class="nav-item" routerLink="/atp" routerLinkActive="active"><app-icon name="doc" [size]="22" /><span>ATP 11B</span></a>
-      <a class="nav-item" routerLink="/users" routerLinkActive="active"><app-icon name="users" [size]="22" /><span>User Management</span></a>
+      <a class="nav-item" routerLink="/atp" routerLinkActive="active" (click)="navOpen = false"><app-icon name="doc" [size]="22" /><span>ATP 11B</span></a>
+      <a class="nav-item" routerLink="/users" routerLinkActive="active" (click)="navOpen = false"><app-icon name="users" [size]="22" /><span>User Management</span></a>
     </nav>
   </aside>
+  <div class="scrim" (click)="navOpen = false"></div>
   <div class="main">
     <header class="topbar">
-      <button class="icon-btn plain" (click)="collapsed = !collapsed" aria-label="Toggle sidebar"><app-icon name="menu" [size]="22" /></button>
+      <button class="icon-btn plain" (click)="toggleNav()" aria-label="Toggle sidebar" [attr.aria-expanded]="navOpen"><app-icon name="menu" [size]="22" /></button>
       <h1>{{ title }}</h1>
       <button class="icon-btn plain theme-toggle" (click)="theme.toggle()" [attr.aria-label]="theme.theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'" [title]="theme.theme() === 'dark' ? 'Light mode' : 'Dark mode'"><app-icon [name]="theme.theme() === 'dark' ? 'sun' : 'moon'" [size]="22" /></button>
-      <div class="profile" (click)="menu = !menu">
+      <div class="profile" (mouseenter)="menu = true" (mouseleave)="menu = false" (click)="menu = true; $event.stopPropagation()">
         <div class="who"><b>{{ auth.user()?.name }}</b><small>{{ auth.user()?.role }}</small></div>
         <div class="avatar">{{ initials }}</div>
         @if (menu) {
-          <div class="pop" (click)="$event.stopPropagation()"><button class="danger" (click)="auth.logout()">Log out</button></div>
+          <div class="pop" (click)="$event.stopPropagation()">
+            <div class="pop-who"><b>{{ auth.user()?.name }}</b><small>{{ auth.user()?.role }}</small></div>
+            <button class="danger" (click)="menu = false; auth.logout()">Log out</button></div>
         }
       </div>
     </header>

@@ -164,8 +164,61 @@
   margin: 22px 0 0;
 }
 
+// tablet + phone: the artwork becomes a banner on top, the form sits below it
 @media (max-width: 900px) {
-  .lg-art { display: none; }
-  .lg-panel { left: 0; }
+  .lg { --banner: clamp(150px, 26vh, 240px); }
+
+  .lg-art {
+    inset: 0 0 auto 0;
+    height: var(--banner);
+    clip-path: url(#lgClipM);
+    background: #2229c9 url('/login-bg.jpg') no-repeat center 38% / cover;
+  }
+
+  .lg-panel {
+    top: var(--banner);
+    left: 0;
+  }
+
   .lg-card { width: min(400px, 88%); }
+
+  // theme switch sits on the banner, so it needs to read on blue
+  .lg-theme {
+    color: #fff;
+    background: rgba(255, 255, 255, .16);
+    backdrop-filter: blur(4px);
+
+    &:hover:not(:disabled) { background: rgba(255, 255, 255, .28); }
+  }
+}
+
+// short screens (phone in landscape): slimmer banner
+@media (max-width: 900px) and (max-height: 520px) {
+  .lg { --banner: 96px; }
+}
+
+@media (max-width: 480px) {
+  .lg-card { padding: 12px 0 24px; }
+  .lg-logo { width: 60px; height: 60px; }
+
+  .lg-product {
+    font-size: 21px;
+    margin: 14px 0 24px;
+  }
+
+  .lg-title { font-size: 28px; }
+  .lg-sub { font-size: 15px; }
+
+  .lg-card {
+    label { font-size: 14px; margin-top: 16px; }
+
+    .field {
+      height: 46px;
+      font-size: 16px;
+
+      &.pw input { font-size: 16px; }
+    }
+  }
+
+  .lg-btn { height: 48px; font-size: 16px; }
 }

@@ -16,8 +16,8 @@
       <tbody>
         @for (x of list; track x.username; let i = $index) {
           <tr>
-            <td>{{ i + 1 }}</td><td>{{ x.name }}</td><td>{{ x.username }}</td><td>{{ x.role }}</td>
-            <td class="ac">
+            <td data-label="Sr. No.">{{ i + 1 }}</td><td data-label="Name">{{ x.name }}</td><td data-label="Username">{{ x.username }}</td><td data-label="Role">{{ x.role }}</td>
+            <td class="ac" data-label="Actions">
               @if (isAdmin && x.username !== auth.user()?.username) {
                 <button class="icon-btn plain" (click)="del(x)" aria-label="Delete user"><app-icon name="trash" [size]="18" /></button>
               }

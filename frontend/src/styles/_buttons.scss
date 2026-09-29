@@ -32,3 +32,7 @@
   &.plain:hover:not(:disabled) { background: var(--icon-hover); }
   &:disabled { opacity: .35; cursor: not-allowed; }
 }
+
+@media (max-width: 768px) {
+  .btn { height: 42px; padding: 0 16px; }
+}
