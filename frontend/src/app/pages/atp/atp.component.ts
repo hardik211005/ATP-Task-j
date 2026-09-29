@@ -22,7 +22,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
 export class AtpComponent implements OnInit, OnDestroy {
   private api = inject(TasksService);
   tab: Tab = 'active';
-  // search / filter / page / selection are kept per tab so they never leak into the other tab
+  
   state: Record<Tab, TabState> = { active: blank(), history: blank() };
   data: TaskPage = { items: [], total: 0, page: 1, pages: 1, size: 12, counts: { active: 0, history: 0 } };
   counts = { active: 0, history: 0 };
@@ -50,7 +50,7 @@ export class AtpComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.load();
-    // tasks older than 24h move to History on the server; refresh so the tabs follow along
+    
     this.poll = setInterval(() => this.load(), 30000);
   }
   ngOnDestroy() { clearInterval(this.poll); clearTimeout(this.searchTimer); }
@@ -59,7 +59,7 @@ export class AtpComponent implements OnInit, OnDestroy {
     const id = ++this.req;
     const s = this.cur;
     this.api.list(this.tab, s.q, s.filter, s.page, s.size).subscribe((r) => {
-      if (id !== this.req) return; // a newer request superseded this one
+      if (id !== this.req) return; 
       this.data = r; this.counts = r.counts; s.page = r.page;
     });
   }

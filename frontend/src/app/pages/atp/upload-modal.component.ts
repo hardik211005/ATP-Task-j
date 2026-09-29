@@ -21,7 +21,7 @@ export class UploadModalComponent implements OnDestroy {
   items: Item[] = [];
   err = '';
   busy = false;
-  // The attach bar is local feedback only; the real upload happens on the Upload button.
+  
   private timer = setInterval(() => {
     this.items.forEach((i) => { if (i.progress < 100) i.progress = Math.min(100, i.progress + 10 + Math.random() * 15); });
   }, 250);

@@ -1,13 +1,13 @@
-import os
-import sqlite3
-from pathlib import Path
+importos
+importsqlite3
+frompathlibimportPath
 
-BASE = Path(__file__).resolve().parent.parent
-DATA = Path(os.environ.get("ATP_DATA_DIR", BASE / "data"))
-UPLOADS = DATA / "uploads"
-DB_PATH = DATA / "atp.db"
+BASE=Path(__file__).resolve().parent.parent
+DATA=Path(os.environ.get("ATP_DATA_DIR",BASE/"data"))
+UPLOADS=DATA/"uploads"
+DB_PATH=DATA/"atp.db"
 
-SCHEMA = """
+SCHEMA="""
 CREATE TABLE IF NOT EXISTS users (
     username TEXT PRIMARY KEY COLLATE NOCASE,
     name TEXT NOT NULL,
@@ -33,25 +33,25 @@ CREATE TABLE IF NOT EXISTS files (
 """
 
 
-def connect() -> sqlite3.Connection:
-    DATA.mkdir(parents=True, exist_ok=True)
-    UPLOADS.mkdir(parents=True, exist_ok=True)
-    con = sqlite3.connect(DB_PATH)
-    con.row_factory = sqlite3.Row
-    con.execute("PRAGMA foreign_keys = ON")
-    return con
+defconnect()->sqlite3.Connection:
+    DATA.mkdir(parents=True,exist_ok=True)
+UPLOADS.mkdir(parents=True,exist_ok=True)
+con=sqlite3.connect(DB_PATH)
+con.row_factory=sqlite3.Row
+con.execute("PRAGMA foreign_keys = ON")
+returncon
 
 
-def get_db():
-    con = connect()
-    try:
-        yield con
-    finally:
+defget_db():
+    con=connect()
+try:
+        yieldcon
+finally:
         con.close()
 
 
-def init_db():
-    con = connect()
-    con.executescript(SCHEMA)
-    con.commit()
-    con.close()
+definit_db():
+    con=connect()
+con.executescript(SCHEMA)
+con.commit()
+con.close()

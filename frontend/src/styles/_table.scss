@@ -1,4 +1,4 @@
-// data table (ATP page, users page)
+
 .table-wrap {
   overflow: auto;
   padding: 0 14px;
@@ -34,7 +34,7 @@ tbody tr:hover { background: var(--row-hover); }
   width: 90px;
 }
 
-// ---- phones: each row becomes a small card, label on the left, value on the right ----
+
 @media (max-width: 640px) {
   .table-wrap { padding: 0 10px; }
 
@@ -48,7 +48,7 @@ tbody tr:hover { background: var(--row-hover); }
 
   thead { display: none; }
 
-  // the ATP table keeps a "select all" bar
+  
   thead.sel {
     display: block;
     padding: 0 4px 10px;

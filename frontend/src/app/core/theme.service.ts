@@ -15,15 +15,15 @@ export class ThemeService {
     const next: Theme = this.theme() === 'dark' ? 'light' : 'dark';
     this.theme.set(next);
     this.apply(next);
-    try { localStorage.setItem(KEY, next); } catch { /* storage blocked, ignore */ }
+    try { localStorage.setItem(KEY, next); } catch {  }
   }
 
-  // saved choice first, otherwise follow the OS setting
+  
   private initial(): Theme {
     try {
       const saved = localStorage.getItem(KEY);
       if (saved === 'light' || saved === 'dark') return saved;
-    } catch { /* storage blocked, ignore */ }
+    } catch {  }
     return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
 

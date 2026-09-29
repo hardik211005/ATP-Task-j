@@ -22,11 +22,11 @@ export class LoginComponent {
   mode: Mode = 'login';
   show = false; err = ''; info = ''; busy = false;
 
-  // login
+  
   u = ''; p = '';
-  // sign up
+  
   sn = ''; su = ''; sp = ''; sc = '';
-  // reset password
+  
   reset = false; ru = ''; rc = ''; rn = ''; msg = ''; ok = false;
 
   go(m: Mode) {

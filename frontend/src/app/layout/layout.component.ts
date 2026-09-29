@@ -16,12 +16,12 @@ export class LayoutComponent {
   auth = inject(AuthService);
   theme = inject(ThemeService);
   router = inject(Router);
-  collapsed = false;   // desktop: icon-only sidebar
-  navOpen = false;     // phone: slide-in sidebar
+  collapsed = false;   
+  navOpen = false;     
   menu = false;
-  // click anywhere outside the profile area closes the menu (profile click stops propagation)
+  
   @HostListener('document:click') closeMenu() { this.menu = false; }
-  // hamburger: slide-in menu on phones, collapse to icons on larger screens
+  
   toggleNav() {
     if (window.matchMedia('(max-width: 768px)').matches) this.navOpen = !this.navOpen;
     else this.collapsed = !this.collapsed;

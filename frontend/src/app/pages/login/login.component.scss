@@ -11,7 +11,7 @@
   background: var(--login-bg);
 }
 
-// left artwork, clipped by the SVG <clipPath id="lgClip"> in the template
+
 .lg-art {
   position: absolute;
   inset: 0;
@@ -19,7 +19,7 @@
   background: #2229c9 url('/login-bg.jpg') no-repeat -50px top / auto 100%;
 }
 
-// theme switch, top right of the form panel
+
 .lg-theme {
   position: absolute;
   top: 16px;
@@ -33,7 +33,7 @@
   height: 0;
 }
 
-// right panel with the form
+
 .lg-panel {
   position: absolute;
   top: 0;
@@ -164,7 +164,7 @@
   margin: 22px 0 0;
 }
 
-// tablet + phone: the artwork becomes a banner on top, the form sits below it
+
 @media (max-width: 900px) {
   .lg { --banner: clamp(150px, 26vh, 240px); }
 
@@ -182,7 +182,7 @@
 
   .lg-card { width: min(400px, 88%); }
 
-  // theme switch sits on the banner, so it needs to read on blue
+  
   .lg-theme {
     color: #fff;
     background: rgba(255, 255, 255, .16);
@@ -192,7 +192,7 @@
   }
 }
 
-// short screens (phone in landscape): slimmer banner
+
 @media (max-width: 900px) and (max-height: 520px) {
   .lg { --banner: 96px; }
 }

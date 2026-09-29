@@ -8,7 +8,7 @@
   &.collapsed { grid-template-columns: 88px 1fr; }
 }
 
-// ---- sidebar ----
+
 .sidebar {
   background: var(--sidebar-bg);
   color: #fff;
@@ -73,7 +73,7 @@ nav {
   }
 }
 
-// collapsed sidebar (icons only), desktop only
+
 @media (min-width: 769px) {
 .collapsed {
   .brand {
@@ -92,7 +92,7 @@ nav {
 }
 }
 
-// ---- main area ----
+
 .main {
   display: flex;
   flex-direction: column;
@@ -178,7 +178,7 @@ nav {
   z-index: 20;
   min-width: 140px;
 
-  // invisible bridge over the gap so moving the mouse from avatar to menu keeps it open
+  
   &::before {
     content: '';
     position: absolute;
@@ -198,7 +198,7 @@ nav {
 
     &:hover { background: var(--sel); }
 
-    // destructive action: light red on hover
+    
     &.danger:hover {
       background: var(--danger-bg);
       color: var(--danger);
@@ -209,7 +209,7 @@ nav {
 .content {
   flex: 1;
   min-height: 0;
-  padding: 16px 0 0; // gap under navbar
+  padding: 16px 0 0; 
   background: linear-gradient(to bottom, rgba(44, 53, 214, .10), rgba(44, 53, 214, 0) 48px);
   overflow: auto;
 }
@@ -217,7 +217,7 @@ nav {
 .scrim { display: none; }
 .pop-who { display: none; }
 
-// tablet: sidebar shrinks to an icon rail
+
 @media (min-width: 769px) and (max-width: 900px) {
   .shell,
   .shell.collapsed { grid-template-columns: 70px 1fr; }
@@ -226,7 +226,7 @@ nav {
   .nav-item span { display: none; }
 }
 
-// phone: sidebar becomes a slide-in menu opened from the hamburger
+
 @media (max-width: 768px) {
   .shell,
   .shell.collapsed { grid-template-columns: 1fr; }

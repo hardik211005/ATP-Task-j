@@ -1,15 +1,15 @@
-// ---- theme tokens ----
-// Light is the default. Dark overrides live under [data-theme='dark'] (set by ThemeService on <html>).
+
+
 :root {
   --blue: #2c35d6;
   --blue-d: #1d24b8;
   --blue-l: #0d1698;
-  --accent: #2b35d0;          // blue used as text / borders / progress fills
+  --accent: #2b35d0;          
   --accent-2: #5a63ff;
 
   --ink: #0f1226;
-  --ink-2: #2c3049;           // labels
-  --ink-3: #3b4260;           // secondary text, icons
+  --ink-2: #2c3049;           
+  --ink-3: #3b4260;           
   --muted: #5b6078;
   --line: #dfe3f2;
   --sel: #e6ebff;
@@ -21,15 +21,15 @@
   --card-border: rgba(255, 255, 255, .85);
   --card-shadow: 0 4px 20px rgba(44, 53, 214, .08);
 
-  --surface: #fff;            // popovers, drawers, modals, checkboxes, search box
-  --surface-2: #fafbff;       // drop zone
-  --surface-3: #e9edfa;       // icon circles
-  --surface-4: #f2f4fc;       // icon circle ring
+  --surface: #fff;            
+  --surface-2: #fafbff;       
+  --surface-3: #e9edfa;       
+  --surface-4: #f2f4fc;       
   --input-bg: rgba(255, 255, 255, .7);
   --input-border: #cfd5ea;
   --select-border: #d4d9ec;
   --border-soft: #e3e6f3;
-  --track: #e6e9f6;           // progress bar track
+  --track: #e6e9f6;           
   --tab-idle: #8b90a8;
   --tab-count-bg: #e3e7fa;
   --th-line: #3f4459;
@@ -144,7 +144,7 @@ label {
   outline-offset: 2px;
 }
 
-// ---- small text helpers ----
+
 .link {
   color: var(--accent);
   font-weight: 600;
