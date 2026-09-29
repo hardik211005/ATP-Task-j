@@ -112,6 +112,10 @@ nav {
   height: 72px;
   flex: none;
   padding: 0 24px 0 16px;
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 4px 12px rgba(44, 53, 214, .08);
+  position: relative;
+  z-index: 1;
 
   h1 {
     flex: 1;
@@ -205,7 +209,8 @@ nav {
 .content {
   flex: 1;
   min-height: 0;
-  padding: 2px 0 0;
+  padding: 16px 0 0; // gap under navbar
+  background: linear-gradient(to bottom, rgba(44, 53, 214, .10), rgba(44, 53, 214, 0) 48px);
   overflow: auto;
 }
 
@@ -267,6 +272,8 @@ nav {
 
     h1 { font-size: 19px; }
   }
+
+  .content { padding-top: 10px; }
 
   .icon-btn { width: 40px; height: 40px; }
   .who { display: none; }
