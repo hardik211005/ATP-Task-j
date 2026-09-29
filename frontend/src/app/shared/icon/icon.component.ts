@@ -23,8 +23,8 @@ const P: Record<string, string> = {
 @Component({
   selector: 'app-icon',
   standalone: true,
-  template: '<span class="ic" [innerHTML]="html"></span>',
-  styles: ['.ic{display:inline-flex;line-height:0}'],
+  templateUrl: './icon.component.html',
+  styleUrl: './icon.component.scss',
 })
 export class IconComponent {
   private s = inject(DomSanitizer);
@@ -38,22 +38,3 @@ export class IconComponent {
     );
   }
 }
-
-@Component({
-  selector: 'app-file-icon',
-  standalone: true,
-  template: `<svg [attr.width]="size" [attr.height]="size * 28 / 26" viewBox="0 0 26 28" [attr.aria-label]="kind">
-    <path d="M4 2h11l6 6v6M15 2v6h6M4 2v20" fill="none" stroke="#1d3fd1" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-    <text x="12" y="25" font-size="8" font-weight="800" text-anchor="middle" fill="#1d3fd1" font-family="Inter, sans-serif">{{ kind }}</text>
-  </svg>`,
-  styles: ['svg{display:block}'],
-})
-export class FileIconComponent { @Input() kind = 'XLS'; @Input() size = 26; }
-
-@Component({
-  selector: 'app-jio-logo',
-  standalone: true,
-  template: '<img class="jio-img" [src]="variant === \'white\' ? \'/jio-logo-white.png\' : \'/jio-logo.png\'" [style.width.px]="size" [style.height.px]="size" alt="Jio" />',
-  styles: ['.jio-img{display:block;flex:none;border-radius:50%}'],
-})
-export class JioLogoComponent { @Input() size = 44; @Input() variant: 'blue' | 'white' = 'blue'; }

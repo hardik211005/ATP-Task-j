@@ -1,0 +1,97 @@
+// overlay + side drawer + centered modal (filter drawer, upload drawer, reset-password modal)
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 14, 70, .58);
+  z-index: 50;
+  display: flex;
+
+  &.right { justify-content: flex-end; }
+  &.center { align-items: center; justify-content: center; }
+}
+
+.drawer {
+  width: min(400px, 100%);
+  height: 100%;
+  background: #fff;
+  padding: 24px 22px 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 22px 0 0 22px;
+  box-shadow: -10px 0 40px rgba(5, 8, 40, .3);
+  animation: slide .22s ease-out;
+
+  .muted {
+    font-size: 14px;
+    font-weight: 500;
+    color: #23263d;
+    margin: 6px 0 18px;
+  }
+
+  label {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #2c3049;
+    margin: 18px 0 7px;
+  }
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer { animation: none; }
+}
+
+.drawer-head,
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h4 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -.3px;
+  }
+}
+
+.drawer-head + label { margin-top: 22px; }
+
+.drawer-actions,
+.modal-actions {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 0 22px;
+}
+
+.drawer-actions {
+  .btn.ghost {
+    font-weight: 700;
+    padding: 0 16px;
+  }
+
+  .btn.primary {
+    min-width: 172px;
+    height: 44px;
+    justify-content: center;
+    font-size: 15px;
+  }
+}
+
+.modal {
+  background: #fff;
+  border-radius: 14px;
+  padding: 22px;
+  width: min(400px, 92%);
+
+  &.small label:first-of-type { margin-top: 12px; }
+}

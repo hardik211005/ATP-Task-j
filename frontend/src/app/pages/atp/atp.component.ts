@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Filter, Tab, Task, TaskPage } from '../../core/models';
 import { TasksService } from '../../core/tasks.service';
-import { FileIconComponent, IconComponent } from '../../shared/ui';
+import { FileIconComponent } from '../../shared/file-icon/file-icon.component';
+import { IconComponent } from '../../shared/icon/icon.component';
 import { FilterDrawerComponent } from './filter-drawer.component';
 import { UploadModalComponent } from './upload-modal.component';
 
@@ -15,86 +16,8 @@ const pad = (n: number) => String(n).padStart(2, '0');
   selector: 'app-atp',
   standalone: true,
   imports: [FormsModule, IconComponent, FileIconComponent, FilterDrawerComponent, UploadModalComponent],
-  template: `
-    <div class="card">
-      <div class="card-head">
-        <div class="tabs" role="tablist">
-          <button role="tab" class="tab" [class.active]="tab === 'active'" [attr.aria-selected]="tab === 'active'" (click)="switchTab('active')">Active Tasks <em>{{ counts.active }}</em></button>
-          <button role="tab" class="tab" [class.active]="tab === 'history'" [attr.aria-selected]="tab === 'history'" (click)="switchTab('history')">History <em>{{ counts.history }}</em></button>
-        </div>
-        <div class="tools">
-          @if (cur.searchOpen) {
-            <div class="searchbox">
-              <app-icon name="search" [size]="16" />
-              <input autofocus [placeholder]="tab === 'active' ? 'Search active tasks' : 'Search history'" [ngModel]="cur.q" (ngModelChange)="onSearch($event)" />
-              <button class="icon-btn plain" (click)="closeSearch()" aria-label="Close search"><app-icon name="close" [size]="14" /></button>
-            </div>
-          } @else {
-            <button class="icon-btn plain" (click)="cur.searchOpen = true" aria-label="Search"><app-icon name="search" /></button>
-          }
-          <button class="icon-btn plain" (click)="openFilter()" aria-label="Filter"><app-icon name="filter" /></button>
-          @if (cur.sel.size > 0) {
-            <button class="btn primary" (click)="downloadSelected()" [disabled]="busy"><app-icon name="download" /> Download Selected files</button>
-          } @else {
-            <button class="btn primary" (click)="showUpload = true"><app-icon name="upload" /> Upload</button>
-          }
-        </div>
-      </div>
-
-      @if (chips.length) {
-        <div class="chips">
-          @for (c of chips; track c[0]) {
-            <span class="chip">{{ c[1] }}<button (click)="removeChip(c[0])" [attr.aria-label]="'Remove ' + c[1]"><app-icon name="close" [size]="12" /></button></span>
-          }
-          <button class="chip-clear" (click)="clearFilters()" aria-label="Clear all filters"><app-icon name="close" [size]="14" /></button>
-        </div>
-      }
-
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th class="cbcell"><input type="checkbox" class="cb" [checked]="allOnPage" [indeterminate]="someOnPage && !allOnPage" (change)="toggleAll()" aria-label="Select all on page" /></th>
-              <th>Sr. No.</th><th>Sap ID</th><th>Band</th><th>File Type</th><th>Initiated</th><th>User Name</th><th class="ac">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (t of data.items; track t.id; let i = $index) {
-              <tr [class.selected]="cur.sel.has(t.id)">
-                <td class="cbcell"><input type="checkbox" class="cb" [checked]="cur.sel.has(t.id)" (change)="toggle(t.id)" [attr.aria-label]="'Select row ' + (start + i + 1)" /></td>
-                <td>{{ start + i + 1 }}</td>
-                <td>{{ t.sapId }}</td>
-                <td>{{ t.bands }}</td>
-                <td><span class="ftypes">@for (f of t.files; track f.id) { <app-file-icon [kind]="f.type.toUpperCase()" /> }</span></td>
-                <td>{{ t.initiated }}</td>
-                <td>{{ t.user }}</td>
-                <td class="ac"><button class="icon-btn plain" (click)="download(t)" aria-label="Download"><app-icon name="download" /></button></td>
-              </tr>
-            } @empty {
-              <tr><td colspan="8" class="empty">{{ emptyText }}</td></tr>
-            }
-          </tbody>
-        </table>
-      </div>
-
-      <div class="pager">
-        <button class="icon-btn plain" [disabled]="data.page <= 1" (click)="go(data.page - 1)" aria-label="Previous page"><app-icon name="left" [size]="16" /></button>
-        <span class="cur">{{ p2(data.page) }}</span><span>of</span><span>{{ data.pages }}</span>
-        <button class="icon-btn plain" [disabled]="data.page >= data.pages" (click)="go(data.page + 1)" aria-label="Next page"><app-icon name="right" [size]="16" /></button>
-        <div class="select rows">
-          <select [ngModel]="cur.size" (ngModelChange)="setSize($event)">
-            @for (n of [5, 10, 12, 20, 50]; track n) { <option [ngValue]="n">{{ n }} Row</option> }
-          </select><app-icon name="down" [size]="14" />
-        </div>
-      </div>
-
-    </div>
-
-    @if (showUpload) { <app-upload-modal (closed)="showUpload = false" (done)="onUploaded()" /> }
-    @if (showFilter) {
-      <app-filter-drawer [sapOptions]="sapOptions" [bandOptions]="bandOptions" [value]="cur.filter" (closed)="showFilter = false" (apply)="applyFilter($event)" />
-    }
-  `,
+  templateUrl: './atp.component.html',
+  styleUrl: './atp.component.scss',
 })
 export class AtpComponent implements OnInit, OnDestroy {
   private api = inject(TasksService);

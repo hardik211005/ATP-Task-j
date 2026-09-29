@@ -3,44 +3,14 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../core/auth.service';
 import { User } from '../../core/models';
 import { TasksService } from '../../core/tasks.service';
-import { IconComponent } from '../../shared/ui';
+import { IconComponent } from '../../shared/icon/icon.component';
 
 @Component({
   selector: 'app-users',
   standalone: true,
   imports: [FormsModule, IconComponent],
-  template: `
-    <div class="card">
-      <div class="card-head"><div class="tabs"><span class="tab active">Users</span></div></div>
-      @if (isAdmin) {
-        <form class="user-form" (ngSubmit)="add()">
-          <input class="field" name="n" placeholder="Full name" [(ngModel)]="f.name" />
-          <input class="field" name="u" placeholder="Username" [(ngModel)]="f.username" />
-          <input class="field" name="p" type="password" placeholder="Password" [(ngModel)]="f.password" />
-          <select class="field" name="r" [(ngModel)]="f.role"><option>User</option><option>Admin</option></select>
-          <button class="btn primary" type="submit">Add user</button>
-        </form>
-      }
-      @if (err) { <div class="err pad">{{ err }}</div> }
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Sr. No.</th><th>Name</th><th>Username</th><th>Role</th><th class="ac">Actions</th></tr></thead>
-          <tbody>
-            @for (x of list; track x.username; let i = $index) {
-              <tr>
-                <td>{{ i + 1 }}</td><td>{{ x.name }}</td><td>{{ x.username }}</td><td>{{ x.role }}</td>
-                <td class="ac">
-                  @if (isAdmin && x.username !== auth.user()?.username) {
-                    <button class="icon-btn plain" (click)="del(x)" aria-label="Delete user"><app-icon name="trash" [size]="18" /></button>
-                  }
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `,
+  templateUrl: './users.component.html',
+  styleUrl: './users.component.scss',
 })
 export class UsersComponent implements OnInit {
   auth = inject(AuthService);

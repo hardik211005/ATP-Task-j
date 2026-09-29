@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnDestroy, Output, inject } from '@angular/core';
 import { TasksService } from '../../core/tasks.service';
-import { FileIconComponent, IconComponent } from '../../shared/ui';
+import { FileIconComponent } from '../../shared/file-icon/file-icon.component';
+import { IconComponent } from '../../shared/icon/icon.component';
 
 interface Item { id: number; file: File; progress: number; }
 const OK = /\.(xlsx?|csv)$/i;
@@ -10,42 +11,8 @@ let seq = 0;
   selector: 'app-upload-modal',
   standalone: true,
   imports: [IconComponent, FileIconComponent],
-  template: `
-    <div class="overlay right" (click)="closed.emit()">
-      <div class="drawer" (click)="$event.stopPropagation()">
-        <div class="drawer-head"><h4>Upload file</h4><button class="icon-btn plain" (click)="closed.emit()" aria-label="Close"><app-icon name="close" [size]="18" /></button></div>
-        <p class="muted">Upload and attach files to continue</p>
-        <div class="drop" (click)="input.click()" (dragover)="$event.preventDefault()" (drop)="onDrop($event)">
-          <div class="drop-ic"><app-icon name="upload" [size]="20" /></div>
-          <div><span class="link">Click to upload</span> or drag and drop</div>
-          <small>Excel, CSV (SAP ID &amp; Band (Mhz))</small>
-          <input #input type="file" hidden multiple accept=".xls,.xlsx,.csv" (change)="add(input.files); input.value = ''" />
-        </div>
-        @if (err) { <div class="err">{{ err }}</div> }
-        <div class="file-list">
-          @for (i of items; track i.id) {
-            <div class="file-row" [class.done]="i.progress >= 100">
-              <span class="file-ic"><app-file-icon [kind]="kind(i.file.name)" [size]="20" /></span>
-              <div class="file-mid">
-                <b>{{ i.file.name }}</b>
-                <small>{{ size(i.file.size) }}</small>
-                <div class="bar"><i [style.width.%]="i.progress"></i></div>
-              </div>
-              <div class="file-side">
-                @if (i.progress >= 100) { <span class="tick"><app-icon name="check" [size]="12" /></span> }
-                @else { <button class="icon-btn plain" (click)="remove(i)" aria-label="Remove file"><app-icon name="trash" [size]="18" /></button> }
-                <small>{{ round(i.progress) }}%</small>
-              </div>
-            </div>
-          }
-        </div>
-        <div class="drawer-actions">
-          <button class="btn ghost" (click)="closed.emit()">Cancel</button>
-          <button class="btn primary" [disabled]="!ready" (click)="upload()">{{ busy ? 'Uploading…' : 'Upload' }}</button>
-        </div>
-      </div>
-    </div>
-  `,
+  templateUrl: './upload-modal.component.html',
+  styleUrl: './upload-modal.component.scss',
 })
 export class UploadModalComponent implements OnDestroy {
   private api = inject(TasksService);

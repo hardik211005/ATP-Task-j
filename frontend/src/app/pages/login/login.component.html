@@ -1,0 +1,82 @@
+<div class="lg">
+  <svg class="lg-clip-svg" aria-hidden="true">
+    <defs>
+      <clipPath id="lgClip" clipPathUnits="objectBoundingBox">
+        <path d="M0,0 L0.575,0 C0.63,0.22 0.62,0.55 0.38,1 L0,1 Z" />
+      </clipPath>
+    </defs>
+  </svg>
+
+  <div class="lg-art" role="img" aria-label="5G tower over India network map"></div>
+
+  <div class="lg-panel">
+    @if (mode === 'login') {
+      <form class="lg-card" (ngSubmit)="submit()">
+        <img class="lg-logo" src="/jio-logo.png" alt="Jio" />
+        <h2 class="lg-product">5G Site Planning and Engineering Product</h2>
+        <h3 class="lg-title">Welcome</h3>
+        <p class="lg-sub">Please log in to continue your journey!</p>
+        @if (info) { <div class="ok">{{ info }}</div> }
+
+        <label for="u">Username</label>
+        <input id="u" class="field" name="u" [(ngModel)]="u" (ngModelChange)="err = ''" autocomplete="username" />
+
+        <label for="p">Password</label>
+        <div class="field pw">
+          <input id="p" name="p" [type]="show ? 'text' : 'password'" [(ngModel)]="p" (ngModelChange)="err = ''" autocomplete="current-password" />
+          <button type="button" class="icon-btn plain" (click)="show = !show" aria-label="Show password"><app-icon [name]="show ? 'eyeoff' : 'eye'" /></button>
+        </div>
+        <button type="button" class="lg-link lg-forgot" (click)="openReset()">Reset Password</button>
+
+        @if (err) { <div class="err" style="margin:0 0 12px">{{ err }}</div> }
+        <button class="lg-btn" type="submit" [disabled]="busy">Login</button>
+        <p class="lg-switch">New user? <button type="button" class="lg-link" (click)="go('signup')">Create account</button></p>
+      </form>
+    } @else {
+      <form class="lg-card" (ngSubmit)="signup()">
+        <img class="lg-logo" src="/jio-logo.png" alt="Jio" />
+        <h2 class="lg-product">5G Site Planning and Engineering Product</h2>
+        <h3 class="lg-title">Create account</h3>
+        <p class="lg-sub">Fill in your details to get started.</p>
+
+        <label for="sn">Full name</label>
+        <input id="sn" class="field" name="sn" [(ngModel)]="sn" (ngModelChange)="err = ''" autocomplete="name" />
+
+        <label for="su">Username</label>
+        <input id="su" class="field" name="su" [(ngModel)]="su" (ngModelChange)="err = ''" autocomplete="username" />
+        <p class="hint">Letters, numbers, dot, dash or underscore (min 3).</p>
+
+        <label for="sp">Password</label>
+        <div class="field pw">
+          <input id="sp" name="sp" [type]="show ? 'text' : 'password'" [(ngModel)]="sp" (ngModelChange)="err = ''" autocomplete="new-password" />
+          <button type="button" class="icon-btn plain" (click)="show = !show" aria-label="Show password"><app-icon [name]="show ? 'eyeoff' : 'eye'" /></button>
+        </div>
+
+        <label for="sc">Confirm password</label>
+        <div class="field pw">
+          <input id="sc" name="sc" [type]="show ? 'text' : 'password'" [(ngModel)]="sc" (ngModelChange)="err = ''" autocomplete="new-password" />
+        </div>
+
+        @if (err) { <div class="err">{{ err }}</div> }
+        <button class="lg-btn" type="submit" [disabled]="busy" style="margin-top:22px">Create account</button>
+        <p class="lg-switch">Already have an account? <button type="button" class="lg-link" (click)="go('login')">Login</button></p>
+      </form>
+    }
+  </div>
+
+  @if (reset) {
+    <div class="overlay center" (click)="reset = false">
+      <form class="modal small" (click)="$event.stopPropagation()" (ngSubmit)="doReset()">
+        <div class="modal-head"><h4>Reset password</h4><button type="button" class="icon-btn plain" (click)="reset = false"><app-icon name="close" [size]="18" /></button></div>
+        <label>Username</label><input class="field" name="ru" [(ngModel)]="ru" />
+        <label>Current password</label><input class="field" type="password" name="rc" [(ngModel)]="rc" />
+        <label>New password</label><input class="field" type="password" name="rn" [(ngModel)]="rn" />
+        @if (msg) { <div [class]="ok ? 'ok' : 'err'">{{ msg }}</div> }
+        <div class="modal-actions">
+          <button type="button" class="btn ghost" (click)="reset = false">Cancel</button>
+          <button class="btn primary" type="submit">Reset password</button>
+        </div>
+      </form>
+    </div>
+  }
+</div>

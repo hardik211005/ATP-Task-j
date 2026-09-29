@@ -1,0 +1,67 @@
+// text field (login, users, reset-password modal)
+.field {
+  width: 100%;
+  height: 42px;
+  border: 1px solid #cfd5ea;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .7);
+  padding: 0 12px;
+  outline: 0;
+
+  &:focus,
+  &:focus-within {
+    border-color: var(--blue-l);
+    box-shadow: 0 0 0 3px rgba(74, 85, 240, .15);
+  }
+
+  &.pw {
+    display: flex;
+    align-items: center;
+    padding: 0 4px 0 0;
+
+    input {
+      flex: 1;
+      border: 0;
+      background: none;
+      height: 100%;
+      padding: 0 12px;
+      outline: 0;
+    }
+  }
+}
+
+// custom select / input wrapper (rows-per-page, filter drawer)
+.select {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  select, input {
+    width: 100%;
+    height: 46px;
+    padding: 0 40px 0 14px;
+    border: 1px solid #d4d9ec;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(20, 24, 80, .05);
+    appearance: none;
+    outline: 0;
+    font-size: 14px;
+    font-weight: 500;
+
+    &:focus {
+      border-color: var(--blue-l);
+      box-shadow: 0 0 0 3px rgba(74, 85, 240, .13);
+    }
+  }
+
+  app-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    pointer-events: none;
+    color: #3b4260;
+  }
+}

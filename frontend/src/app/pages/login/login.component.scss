@@ -1,0 +1,163 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.lg {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  background: linear-gradient(135deg, #ffffff 0%, #eef1fb 55%, #e4e9fa 100%);
+}
+
+// left artwork, clipped by the SVG <clipPath id="lgClip"> in the template
+.lg-art {
+  position: absolute;
+  inset: 0;
+  clip-path: url(#lgClip);
+  background: #2229c9 url('/login-bg.jpg') no-repeat -50px top / auto 100%;
+}
+
+.lg-clip-svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+// right panel with the form
+.lg-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 62%;
+  display: flex;
+  overflow-y: auto;
+}
+
+.lg-card {
+  width: min(400px, 88%);
+  margin: auto;
+  padding: 28px 0;
+
+  label {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0a0d24;
+    margin: 20px 0 8px;
+  }
+
+  .field {
+    height: 48px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #0a0d24;
+    border-color: #d3d8ec;
+    background: #fdfdff;
+
+    &.pw input {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    &:-webkit-autofill,
+    input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 100px #fdfdff inset;
+      -webkit-text-fill-color: #0a0d24;
+    }
+  }
+
+  .err,
+  .ok {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 12px 0 0;
+  }
+
+  .ok { margin: 0 0 4px; }
+
+  .hint {
+    font-size: 12.5px;
+    color: #5b6078;
+    font-weight: 500;
+    margin: 6px 0 0;
+  }
+}
+
+.lg-logo {
+  width: 74px;
+  height: 74px;
+  display: block;
+}
+
+.lg-product {
+  color: #2b35d0;
+  font-size: 27px;
+  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: -.4px;
+  margin: 18px 0 38px;
+}
+
+.lg-title {
+  font-size: 35px;
+  font-weight: 800;
+  color: #05071a;
+  margin: 0 0 8px;
+  letter-spacing: -.8px;
+  line-height: 1.1;
+}
+
+.lg-sub {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1d33;
+  margin: 0 0 10px;
+  letter-spacing: -.1px;
+}
+
+.lg-link {
+  color: #2b35d0;
+  font-weight: 700;
+  font-size: 15px;
+  background: none;
+  padding: 0;
+
+  &:hover { text-decoration: underline; }
+}
+
+.lg-forgot {
+  display: block;
+  margin: 14px 0 24px auto;
+}
+
+.lg-btn {
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  background: linear-gradient(180deg, #3a45e6, #2b35d0);
+  box-shadow: 0 3px 10px rgba(43, 53, 208, .35);
+  transition: background .15s;
+
+  &:hover:not(:disabled) { background: #1d24b8; }
+  &:disabled { opacity: .55; cursor: not-allowed; }
+}
+
+.lg-switch {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2c3049;
+  margin: 22px 0 0;
+}
+
+@media (max-width: 900px) {
+  .lg-art { display: none; }
+  .lg-panel { left: 0; }
+  .lg-card { width: min(400px, 88%); }
+}

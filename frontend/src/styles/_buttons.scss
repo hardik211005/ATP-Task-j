@@ -1,0 +1,34 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background .15s;
+
+  &.primary {
+    background: linear-gradient(180deg, var(--blue-l), var(--blue));
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(44, 53, 214, .35);
+
+    &:hover:not(:disabled) { background: var(--blue-d); }
+    &:disabled { opacity: .5; cursor: not-allowed; }
+  }
+
+  &.ghost { color: var(--ink); }
+  &.block { width: 100%; justify-content: center; }
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  color: var(--ink);
+
+  &.plain:hover:not(:disabled) { background: rgba(44, 53, 214, .09); }
+  &:disabled { opacity: .35; cursor: not-allowed; }
+}

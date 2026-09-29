@@ -1,0 +1,34 @@
+.drawer.narrow { width: min(375px, 100%); }
+
+// date input styled like the other selects, with a placeholder overlay
+.select.date {
+  height: 46px;
+
+  input::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 46px;
+    height: 46px;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .ph {
+    position: absolute;
+    left: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #3b4260;
+    pointer-events: none;
+    display: none;
+  }
+
+  &.empty input:not(:focus) {
+    color: transparent;
+
+    + .ph { display: block; }
+  }
+}

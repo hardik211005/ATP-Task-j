@@ -1,0 +1,76 @@
+:root {
+  --blue: #2c35d6;
+  --blue-d: #1d24b8;
+  --blue-l: #4a55f0;
+  --ink: #0f1226;
+  --muted: #5b6078;
+  --line: #dfe3f2;
+  --bg: #c9d0ee;
+  --card: rgba(255, 255, 255, .72);
+  --sel: #e6ebff;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  color: var(--ink);
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: linear-gradient(160deg, #aeb8ea 0%, #d5dbf3 55%, #b9c3ec 100%);
+  font-size: 14px;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+
+input, select {
+  font: inherit;
+  color: inherit;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 16px 0 6px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue-l);
+  outline-offset: 2px;
+}
+
+// ---- small text helpers ----
+.link {
+  color: var(--blue);
+  font-weight: 600;
+  background: none;
+}
+
+.muted {
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+
+.err {
+  color: #c2261f;
+  font-size: 13px;
+  margin: 10px 0;
+
+  &.pad { padding: 0 24px; }
+}
+
+.ok {
+  color: #137a3c;
+  font-size: 13px;
+  margin: 10px 0;
+}

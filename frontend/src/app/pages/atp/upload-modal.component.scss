@@ -1,0 +1,141 @@
+// ---- drop zone ----
+.drop {
+  border: 1px solid #e1e5f3;
+  border-radius: 14px;
+  background: #fafbff;
+  box-shadow: 0 1px 3px rgba(20, 24, 80, .05);
+  text-align: center;
+  padding: 26px 12px 22px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  &:hover { border-color: var(--blue-l); }
+
+  .link { font-weight: 700; }
+
+  small {
+    color: #23263d;
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+
+.drop-ic {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #e9edfa;
+  border: 6px solid #f2f4fc;
+  box-sizing: content-box;
+  color: #3b4260;
+  display: grid;
+  place-items: center;
+  margin-bottom: 4px;
+}
+
+// ---- attached files ----
+.file-list {
+  flex: 1;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: auto;
+}
+
+.file-row {
+  display: flex;
+  gap: 14px;
+  padding: 18px 18px;
+  min-height: 100px;
+  border: 1px solid #e3e6f3;
+  border-radius: 12px;
+  align-items: stretch;
+  background: #fff;
+
+  &.done {
+    border: 2px solid #2b35d0;
+    padding: 17px 17px;
+  }
+}
+
+.file-ic {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #e9edfb;
+  display: grid;
+  place-items: center;
+  flex: none;
+  margin-top: 2px;
+}
+
+.file-mid {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  b {
+    font-weight: 600;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  small {
+    color: #3b4260;
+    font-size: 12.5px;
+    font-weight: 500;
+  }
+}
+
+.bar {
+  height: 8px;
+  background: #e6e9f6;
+  border-radius: 99px;
+  margin-top: auto;
+  overflow: hidden;
+
+  i {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #2b35d0, #5a63ff);
+    border-radius: 99px;
+    transition: width .2s;
+  }
+}
+
+.file-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  min-width: 36px;
+
+  small {
+    color: #3b4260;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .icon-btn {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.tick {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #2b35d0;
+  color: #fff;
+  display: grid;
+  place-items: center;
+}
