@@ -3,7 +3,7 @@
 :root {
   --blue: #2c35d6;
   --blue-d: #1d24b8;
-  --blue-l: #4a55f0;
+  --blue-l: #0d1698;
   --accent: #2b35d0;          // blue used as text / borders / progress fills
   --accent-2: #5a63ff;
 
@@ -44,7 +44,7 @@
   --danger-bg: #fdecea;
   --ok: #137a3c;
 
-  --sidebar-bg: linear-gradient(172deg, #040b8a 0%, #10146d 55%, #090b8e 100%);
+  --sidebar-bg: linear-gradient(172deg, #040b8a 0%, #10146d 55%,  #090b8e 100%);
   --sidebar-shadow: rgba(15, 21, 186, .35);
   --login-bg: linear-gradient(135deg, #ffffff 0%, #eef1fb 55%, #e4e9fa 100%);
   --login-field: #fdfdff;
