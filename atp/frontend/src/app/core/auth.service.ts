@@ -25,6 +25,9 @@ export class AuthService {
       }),
     );
   }
+  register(name: string, username: string, password: string) {
+    return this.http.post<User>('/api/auth/register', { name, username, password });
+  }
   resetPassword(username: string, current_password: string, new_password: string) {
     return this.http.post('/api/auth/reset-password', { username, current_password, new_password });
   }

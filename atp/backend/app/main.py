@@ -67,6 +67,12 @@ class ResetIn(BaseModel):
     new_password: str = Field(min_length=6)
 
 
+class RegisterIn(BaseModel):
+    name: str = Field(min_length=2, max_length=60)
+    username: str = Field(min_length=3, max_length=32)
+    password: str = Field(min_length=6, max_length=128)
+
+
 class UserIn(BaseModel):
     name: str = Field(min_length=1)
     username: str = Field(min_length=1)
@@ -81,6 +87,21 @@ def login(body: LoginIn, db=Depends(get_db)):
         raise HTTPException(401, "Username or password is incorrect.")
     return {"token": create_token(row["username"]),
             "user": {"username": row["username"], "name": row["name"], "role": row["role"]}}
+
+
+@app.post("/api/auth/register", status_code=201)
+def register(body: RegisterIn, db=Depends(get_db)):
+    username, name = body.username.strip(), " ".join(body.name.split())
+    if not re.fullmatch(r"[A-Za-z0-9._-]{3,32}", username):
+        raise HTTPException(400, "Username can only have letters, numbers, dot, dash and underscore.")
+    if len(name) < 2:
+        raise HTTPException(400, "Enter your full name.")
+    if db.execute("SELECT 1 FROM users WHERE username=?", (username,)).fetchone():
+        raise HTTPException(409, "That username is taken.")
+    # Self sign-up always creates a normal user. Admin role is only given from Users page by an admin.
+    db.execute("INSERT INTO users VALUES (?,?,?,?)", (username, name, hash_password(body.password), "User"))
+    db.commit()
+    return {"username": username, "name": name, "role": "User"}
 
 
 @app.get("/api/auth/me")

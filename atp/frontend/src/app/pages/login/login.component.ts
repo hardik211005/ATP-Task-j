@@ -12,38 +12,37 @@ type Mode = 'login' | 'signup';
   imports: [FormsModule, IconComponent],
   styles: [`
     :host { display: block; height: 100%; }
-    .lg { position: relative; height: 100%; overflow: hidden; background: #eef0fb; font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
-    .lg-art { position: absolute; inset: 0; background: #2229c9 url('/login-bg.jpg') no-repeat left center / cover; }
-    .lg-panel {
-      position: absolute; top: 0; right: 0; bottom: 0; width: 46%;
-      display: grid; place-items: center;
-      background: linear-gradient(135deg, #ffffff 0%, #eef1fb 55%, #e4e9fa 100%);
-      clip-path: url(#lgClip);
-    }
-    .lg-card { width: min(380px, 78%); margin-left: 12%; padding: 24px 0; }
-    .lg-logo { width: 62px; height: 62px; display: block; }
-    .lg-product { color: #2b35d0; font-size: 21px; line-height: 1.28; font-weight: 800; letter-spacing: -.2px; margin: 16px 0 34px; max-width: 320px; }
-    .lg-title { font-size: 30px; font-weight: 800; color: #0a0d24; margin: 0 0 6px; letter-spacing: -.4px; }
-    .lg-sub { font-size: 13.5px; font-weight: 500; color: #23263d; margin: 0 0 8px; }
-    .lg-card label { font-size: 13.5px; font-weight: 700; color: #0f1226; margin: 18px 0 7px; }
-    .lg-card .field { height: 46px; font-size: 14px; font-weight: 500; border-color: #d3d8ec; background: rgba(255,255,255,.85); }
-    .lg-card .field.pw input { font-weight: 500; }
-    .lg-link { color: #2b35d0; font-weight: 600; font-size: 13.5px; background: none; padding: 0; }
+    .lg { position: relative; height: 100%; overflow: hidden; font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #ffffff 0%, #eef1fb 55%, #e4e9fa 100%); }
+    .lg-art { position: absolute; inset: 0; clip-path: url(#lgClip);
+      background: #2229c9 url('/login-bg.jpg') no-repeat -50px top / auto 100%; }
+    .lg-panel { position: absolute; top: 0; right: 0; bottom: 0; left: 62%; display: flex; overflow-y: auto; }
+    .lg-card { width: min(400px, 88%); margin: auto; padding: 28px 0; }
+    .lg-logo { width: 74px; height: 74px; display: block; }
+    .lg-product { color: #2b35d0; font-size: 27px; line-height: 1.25; font-weight: 800; letter-spacing: -.4px; margin: 18px 0 38px; }
+    .lg-title { font-size: 35px; font-weight: 800; color: #05071a; margin: 0 0 8px; letter-spacing: -.8px; line-height: 1.1; }
+    .lg-sub { font-size: 16px; font-weight: 600; color: #1a1d33; margin: 0 0 10px; letter-spacing: -.1px; }
+    .lg-card label { font-size: 15px; font-weight: 700; color: #0a0d24; margin: 20px 0 8px; }
+    .lg-card .field { height: 48px; font-size: 15px; font-weight: 600; color: #0a0d24; border-color: #d3d8ec; background: #fdfdff; }
+    .lg-card .field.pw input { font-weight: 600; font-size: 15px; }
+    .lg-card .field:-webkit-autofill,
+    .lg-card .field input:-webkit-autofill { -webkit-box-shadow: 0 0 0 100px #fdfdff inset; -webkit-text-fill-color: #0a0d24; }
+    .lg-link { color: #2b35d0; font-weight: 700; font-size: 15px; background: none; padding: 0; }
     .lg-link:hover { text-decoration: underline; }
-    .lg-forgot { display: block; margin: 12px 0 22px auto; }
-    .lg-btn { width: 100%; height: 46px; border-radius: 8px; color: #fff; font-size: 15px; font-weight: 700; letter-spacing: .2px;
+    .lg-forgot { display: block; margin: 14px 0 24px auto; }
+    .lg-btn { width: 100%; height: 50px; border-radius: 8px; color: #fff; font-size: 17px; font-weight: 700; letter-spacing: .2px;
       background: linear-gradient(180deg, #3a45e6, #2b35d0); box-shadow: 0 3px 10px rgba(43,53,208,.35); transition: background .15s; }
     .lg-btn:hover:not(:disabled) { background: #1d24b8; }
     .lg-btn:disabled { opacity: .55; cursor: not-allowed; }
-    .lg-switch { text-align: center; font-size: 13.5px; font-weight: 500; color: #3b3f58; margin: 20px 0 0; }
-    .lg-card .err, .lg-card .ok { font-weight: 600; margin: 12px 0 0; }
+    .lg-switch { text-align: center; font-size: 15px; font-weight: 600; color: #2c3049; margin: 22px 0 0; }
+    .lg-card .err, .lg-card .ok { font-size: 14px; font-weight: 600; margin: 12px 0 0; }
     .lg-card .ok { margin: 0 0 4px; }
-    .lg-card .hint { font-size: 12px; color: #6a6f88; font-weight: 500; margin: 6px 0 0; }
+    .lg-card .hint { font-size: 12.5px; color: #5b6078; font-weight: 500; margin: 6px 0 0; }
     .lg-clip-svg { position: absolute; width: 0; height: 0; }
     @media (max-width: 900px) {
       .lg-art { display: none; }
-      .lg-panel { position: relative; width: 100%; height: 100%; clip-path: none; }
-      .lg-card { margin-left: 0; width: min(380px, 88%); }
+      .lg-panel { left: 0; }
+      .lg-card { width: min(400px, 88%); }
     }
   `],
   template: `
@@ -51,7 +50,7 @@ type Mode = 'login' | 'signup';
       <svg class="lg-clip-svg" aria-hidden="true">
         <defs>
           <clipPath id="lgClip" clipPathUnits="objectBoundingBox">
-            <path d="M0.36,0 L1,0 L1,1 L0,1 C0.1,0.82 0.34,0.42 0.36,0 Z" />
+            <path d="M0,0 L0.575,0 C0.63,0.22 0.62,0.55 0.38,1 L0,1 Z" />
           </clipPath>
         </defs>
       </svg>
