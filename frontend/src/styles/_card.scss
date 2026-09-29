@@ -1,11 +1,11 @@
 // card + tab header (ATP page, users page)
 .card {
   margin: 0 16px 16px;
-  background: rgba(255, 255, 255, .68);
-  border: 1px solid rgba(255, 255, 255, .85);
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 20px;
   padding: 20px 0 14px;
-  box-shadow: 0 4px 20px rgba(44, 53, 214, .08);
+  box-shadow: var(--card-shadow);
 }
 
 .card-head {
@@ -26,7 +26,7 @@
   font-size: 23px;
   font-weight: 800;
   letter-spacing: -.3px;
-  color: #8b90a8;
+  color: var(--tab-idle);
   padding: 4px 0;
   border-bottom: 3px solid transparent;
   display: flex;
@@ -37,8 +37,8 @@
     font-style: normal;
     font-size: 11.5px;
     font-weight: 700;
-    background: #e3e7fa;
-    color: var(--blue);
+    background: var(--tab-count-bg);
+    color: var(--accent);
     border-radius: 99px;
     padding: 2px 8px;
   }

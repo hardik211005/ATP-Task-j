@@ -15,7 +15,7 @@ th {
   font-weight: 700;
   text-align: left;
   padding: 14px 12px;
-  border-bottom: 2px solid #3f4459;
+  border-bottom: 2px solid var(--th-line);
   white-space: nowrap;
 }
 
@@ -27,7 +27,7 @@ td {
   font-size: 13.5px;
 }
 
-tbody tr:hover { background: rgba(44, 53, 214, .04); }
+tbody tr:hover { background: var(--row-hover); }
 
 .ac {
   text-align: center;

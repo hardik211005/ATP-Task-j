@@ -9,6 +9,8 @@
 
   <div class="lg-art" role="img" aria-label="5G tower over India network map"></div>
 
+  <button type="button" class="icon-btn plain lg-theme" (click)="theme.toggle()" [attr.aria-label]="theme.theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"><app-icon [name]="theme.theme() === 'dark' ? 'sun' : 'moon'" [size]="22" /></button>
+
   <div class="lg-panel">
     @if (mode === 'login') {
       <form class="lg-card" (ngSubmit)="submit()">

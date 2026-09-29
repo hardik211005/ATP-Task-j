@@ -17,9 +17,9 @@
   gap: 6px;
   height: 40px;
   padding: 0 4px 0 12px;
-  border: 1px solid #cfd5ea;
+  border: 1px solid var(--input-border);
   border-radius: 8px;
-  background: #fff;
+  background: var(--surface);
 
   input {
     border: 0;
@@ -65,7 +65,7 @@
   border-radius: 8px;
   display: grid;
   place-items: center;
-  background: #fff;
+  background: var(--surface);
 }
 
 // ---- table extras (base table styles are global) ----
@@ -91,9 +91,9 @@ tbody tr.selected {
   appearance: none;
   width: 18px;
   height: 18px;
-  border: 1.5px solid #b8bed6;
+  border: 1.5px solid var(--cb-border);
   border-radius: 4px;
-  background: #fff;
+  background: var(--surface);
   display: grid;
   place-items: center;
   margin: 0;
@@ -101,16 +101,16 @@ tbody tr.selected {
 
   &:checked,
   &:indeterminate {
-    background: #fff;
-    border-color: var(--blue);
+    background: var(--surface);
+    border-color: var(--accent);
   }
 
   &:checked::after {
     content: '';
     width: 9px;
     height: 5px;
-    border-left: 2px solid var(--blue);
-    border-bottom: 2px solid var(--blue);
+    border-left: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
     transform: rotate(-45deg) translate(1px, -1px);
   }
 
@@ -118,7 +118,7 @@ tbody tr.selected {
     content: '';
     width: 8px;
     height: 2px;
-    background: var(--blue);
+    background: var(--accent);
   }
 }
 
@@ -133,9 +133,9 @@ tbody tr.selected {
   font-weight: 500;
 
   .cur {
-    color: var(--blue);
+    color: var(--accent);
     font-weight: 700;
-    border-bottom: 2px solid var(--blue);
+    border-bottom: 2px solid var(--accent);
     padding: 0 2px;
   }
 }

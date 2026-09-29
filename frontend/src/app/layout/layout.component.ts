@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from '../core/auth.service';
+import { ThemeService } from '../core/theme.service';
 import { IconComponent } from '../shared/icon/icon.component';
 import { JioLogoComponent } from '../shared/jio-logo/jio-logo.component';
 
@@ -13,6 +14,7 @@ import { JioLogoComponent } from '../shared/jio-logo/jio-logo.component';
 })
 export class LayoutComponent {
   auth = inject(AuthService);
+  theme = inject(ThemeService);
   router = inject(Router);
   collapsed = false;
   menu = false;

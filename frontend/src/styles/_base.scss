@@ -1,15 +1,107 @@
+// ---- theme tokens ----
+// Light is the default. Dark overrides live under [data-theme='dark'] (set by ThemeService on <html>).
 :root {
   --blue: #2c35d6;
   --blue-d: #1d24b8;
   --blue-l: #4a55f0;
+  --accent: #2b35d0;          // blue used as text / borders / progress fills
+  --accent-2: #5a63ff;
+
   --ink: #0f1226;
+  --ink-2: #2c3049;           // labels
+  --ink-3: #3b4260;           // secondary text, icons
   --muted: #5b6078;
   --line: #dfe3f2;
-  --bg: #c9d0ee;
-  --card: rgba(255, 255, 255, .72);
   --sel: #e6ebff;
+
+  --page-bg: linear-gradient(160deg, #aeb8ea 0%, #d5dbf3 55%, #b9c3ec 100%);
+  --main-bg: rgba(255, 255, 255, .5);
+  --main-border: rgba(255, 255, 255, .75);
+  --card-bg: rgba(255, 255, 255, .68);
+  --card-border: rgba(255, 255, 255, .85);
+  --card-shadow: 0 4px 20px rgba(44, 53, 214, .08);
+
+  --surface: #fff;            // popovers, drawers, modals, checkboxes, search box
+  --surface-2: #fafbff;       // drop zone
+  --surface-3: #e9edfa;       // icon circles
+  --surface-4: #f2f4fc;       // icon circle ring
+  --input-bg: rgba(255, 255, 255, .7);
+  --input-border: #cfd5ea;
+  --select-border: #d4d9ec;
+  --border-soft: #e3e6f3;
+  --track: #e6e9f6;           // progress bar track
+  --tab-idle: #8b90a8;
+  --tab-count-bg: #e3e7fa;
+  --th-line: #3f4459;
+  --cb-border: #b8bed6;
+  --row-hover: rgba(44, 53, 214, .04);
+  --icon-hover: rgba(44, 53, 214, .09);
+  --overlay-bg: rgba(10, 14, 70, .58);
+  --drawer-shadow: rgba(5, 8, 40, .3);
+  --pop-shadow: rgba(20, 24, 80, .2);
+
+  --danger: #c2261f;
+  --danger-bg: #fdecea;
+  --ok: #137a3c;
+
+  --sidebar-bg: linear-gradient(172deg, #1b24d0 0%, #2a32e0 55%, #3a3ce8 100%);
+  --login-bg: linear-gradient(135deg, #ffffff 0%, #eef1fb 55%, #e4e9fa 100%);
+  --login-field: #fdfdff;
+
   font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
   color: var(--ink);
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --blue: #4a55f0;
+  --blue-d: #3a45e0;
+  --blue-l: #6873ff;
+  --accent: #97a1ff;
+  --accent-2: #7f89ff;
+
+  --ink: #e9ebfa;
+  --ink-2: #c9cdea;
+  --ink-3: #a4abd0;
+  --muted: #8f96bd;
+  --line: #2a3063;
+  --sel: rgba(104, 115, 255, .2);
+
+  --page-bg: linear-gradient(160deg, #080b1f 0%, #0f1330 55%, #0a0d25 100%);
+  --main-bg: rgba(18, 22, 54, .62);
+  --main-border: rgba(120, 132, 255, .14);
+  --card-bg: rgba(24, 29, 68, .72);
+  --card-border: rgba(120, 132, 255, .16);
+  --card-shadow: 0 4px 24px rgba(0, 0, 0, .35);
+
+  --surface: #171b40;
+  --surface-2: #1b2048;
+  --surface-3: #262c63;
+  --surface-4: #1b2048;
+  --input-bg: rgba(255, 255, 255, .05);
+  --input-border: #343b78;
+  --select-border: #343b78;
+  --border-soft: #2b326c;
+  --track: #262c63;
+  --tab-idle: #6f76a3;
+  --tab-count-bg: #262c63;
+  --th-line: #566099;
+  --cb-border: #4a5290;
+  --row-hover: rgba(104, 115, 255, .08);
+  --icon-hover: rgba(151, 161, 255, .14);
+  --overlay-bg: rgba(2, 4, 22, .72);
+  --drawer-shadow: rgba(0, 0, 0, .55);
+  --pop-shadow: rgba(0, 0, 0, .5);
+
+  --danger: #ff8a84;
+  --danger-bg: rgba(255, 90, 80, .16);
+  --ok: #56d98a;
+
+  --sidebar-bg: linear-gradient(172deg, #10175f 0%, #18208f 55%, #2027b5 100%);
+  --login-bg: linear-gradient(135deg, #0c1030 0%, #10153a 55%, #0a0d26 100%);
+  --login-field: #1b2048;
+
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -20,7 +112,8 @@ html, body, #root {
 }
 
 body {
-  background: linear-gradient(160deg, #aeb8ea 0%, #d5dbf3 55%, #b9c3ec 100%);
+  background: var(--page-bg);
+  color: var(--ink);
   font-size: 14px;
 }
 
@@ -51,7 +144,7 @@ label {
 
 // ---- small text helpers ----
 .link {
-  color: var(--blue);
+  color: var(--accent);
   font-weight: 600;
   background: none;
 }
@@ -62,7 +155,7 @@ label {
 }
 
 .err {
-  color: #c2261f;
+  color: var(--danger);
   font-size: 13px;
   margin: 10px 0;
 
@@ -70,7 +163,7 @@ label {
 }
 
 .ok {
-  color: #137a3c;
+  color: var(--ok);
   font-size: 13px;
   margin: 10px 0;
 }

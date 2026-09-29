@@ -8,7 +8,7 @@
   height: 100%;
   overflow: hidden;
   font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-  background: linear-gradient(135deg, #ffffff 0%, #eef1fb 55%, #e4e9fa 100%);
+  background: var(--login-bg);
 }
 
 // left artwork, clipped by the SVG <clipPath id="lgClip"> in the template
@@ -17,6 +17,14 @@
   inset: 0;
   clip-path: url(#lgClip);
   background: #2229c9 url('/login-bg.jpg') no-repeat -50px top / auto 100%;
+}
+
+// theme switch, top right of the form panel
+.lg-theme {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
 }
 
 .lg-clip-svg {
@@ -44,7 +52,7 @@
   label {
     font-size: 15px;
     font-weight: 700;
-    color: #0a0d24;
+    color: var(--ink);
     margin: 20px 0 8px;
   }
 
@@ -52,9 +60,9 @@
     height: 48px;
     font-size: 15px;
     font-weight: 600;
-    color: #0a0d24;
-    border-color: #d3d8ec;
-    background: #fdfdff;
+    color: var(--ink);
+    border-color: var(--input-border);
+    background: var(--login-field);
 
     &.pw input {
       font-weight: 600;
@@ -63,8 +71,8 @@
 
     &:-webkit-autofill,
     input:-webkit-autofill {
-      -webkit-box-shadow: 0 0 0 100px #fdfdff inset;
-      -webkit-text-fill-color: #0a0d24;
+      -webkit-box-shadow: 0 0 0 100px var(--login-field) inset;
+      -webkit-text-fill-color: var(--ink);
     }
   }
 
@@ -79,7 +87,7 @@
 
   .hint {
     font-size: 12.5px;
-    color: #5b6078;
+    color: var(--muted);
     font-weight: 500;
     margin: 6px 0 0;
   }
@@ -92,7 +100,7 @@
 }
 
 .lg-product {
-  color: #2b35d0;
+  color: var(--accent);
   font-size: 27px;
   line-height: 1.25;
   font-weight: 800;
@@ -103,7 +111,7 @@
 .lg-title {
   font-size: 35px;
   font-weight: 800;
-  color: #05071a;
+  color: var(--ink);
   margin: 0 0 8px;
   letter-spacing: -.8px;
   line-height: 1.1;
@@ -112,13 +120,13 @@
 .lg-sub {
   font-size: 16px;
   font-weight: 600;
-  color: #1a1d33;
+  color: var(--ink-2);
   margin: 0 0 10px;
   letter-spacing: -.1px;
 }
 
 .lg-link {
-  color: #2b35d0;
+  color: var(--accent);
   font-weight: 700;
   font-size: 15px;
   background: none;
@@ -140,11 +148,11 @@
   font-size: 17px;
   font-weight: 700;
   letter-spacing: .2px;
-  background: linear-gradient(180deg, #3a45e6, #2b35d0);
+  background: linear-gradient(180deg, var(--blue-l), var(--blue));
   box-shadow: 0 3px 10px rgba(43, 53, 208, .35);
   transition: background .15s;
 
-  &:hover:not(:disabled) { background: #1d24b8; }
+  &:hover:not(:disabled) { background: var(--blue-d); }
   &:disabled { opacity: .55; cursor: not-allowed; }
 }
 
@@ -152,7 +160,7 @@
   text-align: center;
   font-size: 15px;
   font-weight: 600;
-  color: #2c3049;
+  color: var(--ink-2);
   margin: 22px 0 0;
 }
 

@@ -10,7 +10,7 @@
 
 // ---- sidebar ----
 .sidebar {
-  background: linear-gradient(172deg, #1b24d0 0%, #2a32e0 55%, #3a3ce8 100%);
+  background: var(--sidebar-bg);
   color: #fff;
   border-radius: 0 38px 38px 0;
   padding: 24px 0;
@@ -97,8 +97,8 @@ nav {
   min-width: 0;
   margin: 14px;
   height: calc(100% - 28px);
-  background: rgba(255, 255, 255, .5);
-  border: 1px solid rgba(255, 255, 255, .75);
+  background: var(--main-bg);
+  border: 1px solid var(--main-border);
   border-radius: 24px;
   overflow: hidden;
 }
@@ -161,9 +161,9 @@ nav {
   position: absolute;
   right: 0;
   top: 54px;
-  background: #fff;
+  background: var(--surface);
   border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(20, 24, 80, .2);
+  box-shadow: 0 8px 24px var(--pop-shadow);
   padding: 6px;
   z-index: 20;
   min-width: 140px;
@@ -174,8 +174,15 @@ nav {
     padding: 10px 12px;
     border-radius: 8px;
     font-weight: 600;
+    transition: background .15s, color .15s;
 
     &:hover { background: var(--sel); }
+
+    // destructive action: light red on hover
+    &.danger:hover {
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
   }
 }
 

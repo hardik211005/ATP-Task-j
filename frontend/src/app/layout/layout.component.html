@@ -13,11 +13,12 @@
     <header class="topbar">
       <button class="icon-btn plain" (click)="collapsed = !collapsed" aria-label="Toggle sidebar"><app-icon name="menu" [size]="22" /></button>
       <h1>{{ title }}</h1>
+      <button class="icon-btn plain theme-toggle" (click)="theme.toggle()" [attr.aria-label]="theme.theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'" [title]="theme.theme() === 'dark' ? 'Light mode' : 'Dark mode'"><app-icon [name]="theme.theme() === 'dark' ? 'sun' : 'moon'" [size]="22" /></button>
       <div class="profile" (click)="menu = !menu">
         <div class="who"><b>{{ auth.user()?.name }}</b><small>{{ auth.user()?.role }}</small></div>
         <div class="avatar">{{ initials }}</div>
         @if (menu) {
-          <div class="pop" (click)="$event.stopPropagation()"><button (click)="auth.logout()">Log out</button></div>
+          <div class="pop" (click)="$event.stopPropagation()"><button class="danger" (click)="auth.logout()">Log out</button></div>
         }
       </div>
     </header>

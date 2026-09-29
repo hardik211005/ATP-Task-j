@@ -29,6 +29,6 @@
   border-radius: 8px;
   color: var(--ink);
 
-  &.plain:hover:not(:disabled) { background: rgba(44, 53, 214, .09); }
+  &.plain:hover:not(:disabled) { background: var(--icon-hover); }
   &:disabled { opacity: .35; cursor: not-allowed; }
 }

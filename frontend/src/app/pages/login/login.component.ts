@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/auth.service';
+import { ThemeService } from '../../core/theme.service';
 import { IconComponent } from '../../shared/icon/icon.component';
 
 type Mode = 'login' | 'signup';
@@ -15,6 +16,7 @@ type Mode = 'login' | 'signup';
 })
 export class LoginComponent {
   private auth = inject(AuthService);
+  theme = inject(ThemeService);
   private router = inject(Router);
 
   mode: Mode = 'login';
