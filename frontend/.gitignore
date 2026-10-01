@@ -34,3 +34,6 @@ testem.log
 .DS_Store
 Thumbs.db
 node_modules/
+.env
+backend/data/
+backend/.venv/

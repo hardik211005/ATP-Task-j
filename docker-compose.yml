@@ -1,0 +1,19 @@
+services:
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      ATP_SECRET: ${ATP_SECRET:?set ATP_SECRET in .env}
+      ATP_DATA_DIR: /data
+    volumes:
+      - atp_data:/data          # SQLite db + uploaded files persist here
+
+  web:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on: [backend]
+    ports:
+      - "80:80"
+
+volumes:
+  atp_data:

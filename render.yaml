@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: atp-11b
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: ATP_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false        # paste your Neon connection string in the Render dashboard
