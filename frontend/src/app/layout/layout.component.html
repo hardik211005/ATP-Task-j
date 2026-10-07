@@ -15,7 +15,7 @@
       <button class="icon-btn plain" (click)="toggleNav()" aria-label="Toggle sidebar" [attr.aria-expanded]="navOpen"><app-icon name="menu" [size]="22" /></button>
       <h1>{{ title }}</h1>
       <button class="icon-btn plain theme-toggle" (click)="theme.toggle()" [attr.aria-label]="theme.theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'" [title]="theme.theme() === 'dark' ? 'Light mode' : 'Dark mode'"><app-icon [name]="theme.theme() === 'dark' ? 'sun' : 'moon'" [size]="22" /></button>
-      <div class="profile" (mouseenter)="menu = true" (mouseleave)="menu = false" (click)="menu = true; $event.stopPropagation()">
+      <div class="profile" role="button" tabindex="0" aria-haspopup="menu" [attr.aria-expanded]="menu" (click)="menu = !menu; $event.stopPropagation()" (keydown.enter)="menu = !menu; $event.stopPropagation()">
         <div class="who"><b>{{ auth.user()?.name }}</b><small>{{ auth.user()?.role }}</small></div>
         <div class="avatar">{{ initials }}</div>
         @if (menu) {

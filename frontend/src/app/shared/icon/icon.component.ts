@@ -12,6 +12,7 @@ const P: Record<string, string> = {
   close: '<path d="M6 6l12 12M18 6L6 18"/>',
   check: '<path d="M5 12.5l4.5 4.5L19 7"/>',
   down: '<path d="M6 9l6 6 6-6"/>',
+  up: '<path d="M6 15l6-6 6 6"/>',
   left: '<path d="M15 6l-6 6 6 6"/>',
   right: '<path d="M9 6l6 6-6 6"/>',
   calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
@@ -21,6 +22,8 @@ const P: Record<string, string> = {
   moon: '<path d="M20 14.5A8.5 8.5 0 019.5 4 8.5 8.5 0 1020 14.5z"/>',
   doc: '<path d="M6 3h9l4 4v14H6z"/><path d="M9 11h7M9 15h7M9 19h4"/>',
 };
+
+const CACHE = new Map<string, SafeHtml>();
 
 @Component({
   selector: 'app-icon',
@@ -35,8 +38,12 @@ export class IconComponent {
   @Input() set size(v: number) { this._s = v; this.render(); }
   private _n = ''; private _s = 20;
   private render() {
+    const key = `${this._n}|${this._s}`;
+    const hit = CACHE.get(key);
+    if (hit) { this.html = hit; return; }
     this.html = this.s.bypassSecurityTrustHtml(
       `<svg width="${this._s}" height="${this._s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${P[this._n] || ''}</svg>`,
     );
+    CACHE.set(key, this.html);
   }
 }

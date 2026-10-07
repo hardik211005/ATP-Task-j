@@ -6,8 +6,8 @@ import { Filter, Tab, Task, TaskPage, User } from './models';
 export class TasksService {
   private http = inject(HttpClient);
 
-  list(tab: Tab, q: string, f: Filter, page: number, size: number) {
-    let p = new HttpParams().set('tab', tab).set('page', page).set('size', size);
+  list(tab: Tab, q: string, f: Filter, page: number, size: number, sort: 'asc' | 'desc' = 'desc') {
+    let p = new HttpParams().set('tab', tab).set('page', page).set('size', size).set('sort', sort);
     if (q.trim()) p = p.set('q', q.trim());
     if (f.sapId) p = p.set('sap_id', f.sapId);
     if (f.band) p = p.set('band', f.band);

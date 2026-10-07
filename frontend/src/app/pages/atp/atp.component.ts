@@ -8,8 +8,8 @@ import { FilterDrawerComponent } from './filter-drawer.component';
 import { UploadModalComponent } from './upload-modal.component';
 
 const EMPTY: Filter = { sapId: '', band: '', date: '' };
-interface TabState { q: string; searchOpen: boolean; filter: Filter; page: number; size: number; sel: Set<string>; }
-const blank = (): TabState => ({ q: '', searchOpen: false, filter: { ...EMPTY }, page: 1, size: 12, sel: new Set() });
+interface TabState { sort: 'asc' | 'desc'; q: string; searchOpen: boolean; filter: Filter; page: number; size: number; sel: Set<string>; }
+const blank = (): TabState => ({ sort: 'desc', q: '', searchOpen: false, filter: { ...EMPTY }, page: 1, size: 12, sel: new Set() });
 const pad = (n: number) => String(n).padStart(2, '0');
 
 @Component({
@@ -22,13 +22,14 @@ const pad = (n: number) => String(n).padStart(2, '0');
 export class AtpComponent implements OnInit, OnDestroy {
   private api = inject(TasksService);
   tab: Tab = 'active';
-  
+
   state: Record<Tab, TabState> = { active: blank(), history: blank() };
   data: TaskPage = { items: [], total: 0, page: 1, pages: 1, size: 12, counts: { active: 0, history: 0 } };
   counts = { active: 0, history: 0 };
   showUpload = false; showFilter = false; busy = false;
   sapOptions: string[] = []; bandOptions: string[] = [];
   private searchTimer: any; private poll: any; private req = 0;
+  private cache: Partial<Record<Tab, TaskPage>> = {};
 
   get cur() { return this.state[this.tab]; }
   get start() { return (this.data.page - 1) * this.data.size; }
@@ -50,30 +51,41 @@ export class AtpComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.load();
-    
-    this.poll = setInterval(() => this.load(), 30000);
+
+    // refresh in the background, but not while the tab is hidden
+    this.poll = setInterval(() => { if (!document.hidden) this.load(); }, 30000);
   }
   ngOnDestroy() { clearInterval(this.poll); clearTimeout(this.searchTimer); }
 
   load() {
     const id = ++this.req;
     const s = this.cur;
-    this.api.list(this.tab, s.q, s.filter, s.page, s.size).subscribe((r) => {
-      if (id !== this.req) return; 
+    const tab = this.tab;
+    this.api.list(tab, s.q, s.filter, s.page, s.size, s.sort).subscribe((r) => {
+      if (id !== this.req) return;
       this.data = r; this.counts = r.counts; s.page = r.page;
+      this.cache[tab] = r;
     });
   }
-  switchTab(t: Tab) { if (t === this.tab) return; this.tab = t; this.showFilter = false; this.load(); }
+  switchTab(t: Tab) {
+    if (t === this.tab) return;
+    this.tab = t; this.showFilter = false;
+    // show what we already have for this tab straight away, then refresh behind it
+    const c = this.cache[t]; if (c) this.data = c;
+    this.load();
+  }
+  toggleSort() { this.cur.sort = this.cur.sort === 'desc' ? 'asc' : 'desc'; this.cur.page = 1; this.load(); }
 
   onSearch(v: string) {
     this.cur.q = v; this.cur.page = 1;
     clearTimeout(this.searchTimer);
-    this.searchTimer = setTimeout(() => this.load(), 300);
+    this.searchTimer = setTimeout(() => this.load(), 200);
   }
   closeSearch() { this.cur.q = ''; this.cur.searchOpen = false; this.cur.page = 1; this.load(); }
 
   openFilter() {
-    this.api.filters(this.tab).subscribe((o) => { this.sapOptions = o.sapIds; this.bandOptions = o.bands; this.showFilter = true; });
+    this.showFilter = true; // open instantly; options fill in when they arrive
+    this.api.filters(this.tab).subscribe((o) => { this.sapOptions = o.sapIds; this.bandOptions = o.bands; });
   }
   applyFilter(f: Filter) { this.cur.filter = { ...f }; this.cur.page = 1; this.showFilter = false; this.load(); }
   removeChip(k: string) { (this.cur.filter as any)[k] = ''; this.cur.page = 1; this.load(); }
@@ -97,5 +109,5 @@ export class AtpComponent implements OnInit, OnDestroy {
     });
   }
 
-  onUploaded() { this.showUpload = false; this.tab = 'active'; this.state.active.page = 1; this.load(); }
+  onUploaded() { this.showUpload = false; this.tab = 'active'; this.state.active.page = 1; this.state.active.sort = 'desc'; this.load(); }
 }

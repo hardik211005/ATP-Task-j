@@ -19,6 +19,7 @@ export class UsersComponent implements OnInit {
   f = { name: '', username: '', password: '', role: 'User' };
   err = '';
   get isAdmin() { return this.auth.user()?.role === 'Admin'; }
+  canDelete(u: User) { return this.isAdmin && u.username !== this.auth.user()?.username; }
 
   ngOnInit() { this.load(); }
   load() { this.api.users().subscribe((u) => (this.list = u)); }

@@ -11,6 +11,7 @@ from urllib.parse import quote
 
 from fastapi import Depends, FastAPI, File, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import FileResponse, Response, StreamingResponse
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, Field
@@ -41,6 +42,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.add_middleware(GZipMiddleware, minimum_size=500)
 bearer = HTTPBearer(auto_error=False)
 
 
@@ -175,6 +177,7 @@ def _serialize(db, rows):
 @app.get("/api/tasks")
 def list_tasks(
     tab: str = "active", q: str = "", sap_id: str = "", band: str = "", date: str = "",
+    sort: str = Query("desc", pattern="^(asc|desc)$"),
     page: int = Query(1, ge=1), size: int = Query(12, ge=1, le=100),
     _=Depends(current_user), db=Depends(get_db),
 ):
@@ -203,15 +206,17 @@ def list_tasks(
     total = db.execute(f"SELECT COUNT(*) FROM tasks t WHERE {w}", params).fetchone()[0]
     pages = max(1, -(-total // size))
     page = min(page, pages)
+    cutoff = int(time.time()) - DAY
     rows = db.execute(
-        f"SELECT * FROM tasks t WHERE {w} ORDER BY t.initiated DESC, t.rowid DESC LIMIT ? OFFSET ?",
+        f"SELECT * FROM tasks t WHERE {w} ORDER BY t.initiated {sort.upper()}, t.rowid {sort.upper()} LIMIT ? OFFSET ?",
         params + [size, (page - 1) * size],
     ).fetchall()
-    cutoff = int(time.time()) - DAY
-    counts = {
-        "active": db.execute("SELECT COUNT(*) FROM tasks WHERE initiated >= ?", (cutoff,)).fetchone()[0],
-        "history": db.execute("SELECT COUNT(*) FROM tasks WHERE initiated < ?", (cutoff,)).fetchone()[0],
-    }
+    c = db.execute(
+        "SELECT COALESCE(SUM(CASE WHEN initiated >= ? THEN 1 ELSE 0 END),0) AS a, "
+        "COALESCE(SUM(CASE WHEN initiated < ? THEN 1 ELSE 0 END),0) AS h FROM tasks",
+        (cutoff, cutoff),
+    ).fetchone()
+    counts = {"active": int(c["a"]), "history": int(c["h"])}
     return {"items": _serialize(db, rows), "total": total, "page": page, "pages": pages, "size": size, "counts": counts}
 
 
