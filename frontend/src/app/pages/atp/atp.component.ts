@@ -52,7 +52,6 @@ export class AtpComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.load();
 
-    // refresh in the background, but not while the tab is hidden
     this.poll = setInterval(() => { if (!document.hidden) this.load(); }, 30000);
   }
   ngOnDestroy() { clearInterval(this.poll); clearTimeout(this.searchTimer); }
@@ -70,7 +69,6 @@ export class AtpComponent implements OnInit, OnDestroy {
   switchTab(t: Tab) {
     if (t === this.tab) return;
     this.tab = t; this.showFilter = false;
-    // show what we already have for this tab straight away, then refresh behind it
     const c = this.cache[t]; if (c) this.data = c;
     this.load();
   }
@@ -84,7 +82,7 @@ export class AtpComponent implements OnInit, OnDestroy {
   closeSearch() { this.cur.q = ''; this.cur.searchOpen = false; this.cur.page = 1; this.load(); }
 
   openFilter() {
-    this.showFilter = true; // open instantly; options fill in when they arrive
+    this.showFilter = true;
     this.api.filters(this.tab).subscribe((o) => { this.sapOptions = o.sapIds; this.bandOptions = o.bands; });
   }
   applyFilter(f: Filter) { this.cur.filter = { ...f }; this.cur.page = 1; this.showFilter = false; this.load(); }

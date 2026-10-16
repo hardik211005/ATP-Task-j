@@ -11,7 +11,7 @@ from pathlib import Path
 
 BASE = Path(__file__).resolve().parent.parent
 DATA = Path(os.environ.get("ATP_DATA_DIR", BASE / "data"))
-UPLOADS = DATA / "uploads"  # only used to read files saved by older versions
+UPLOADS = DATA / "uploads"
 DB_PATH = DATA / "atp.db"
 
 DATABASE_URL = os.environ.get("DATABASE_URL", "").strip()
@@ -73,7 +73,6 @@ CREATE TABLE IF NOT EXISTS files (
 """
 
 
-# ---------- Postgres adapter: keeps the SQLite-style SQL used in main.py working ----------
 class _Row(dict):
     """dict row that also supports row[0] like sqlite3.Row."""
 
@@ -150,7 +149,6 @@ def init_db():
         con.execute(SCHEMA_PG)
     else:
         con.executescript(SCHEMA_SQLITE)
-        # older databases: add the column that stores file contents
         cols = {r[1] for r in con.execute("PRAGMA table_info(files)")}
         if "data" not in cols:
             con.execute("ALTER TABLE files ADD COLUMN data BLOB")

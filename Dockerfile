@@ -1,4 +1,3 @@
-# One container for Render: builds Angular, then FastAPI serves UI + /api
 FROM node:20-alpine AS web
 WORKDIR /src
 COPY frontend/package*.json ./

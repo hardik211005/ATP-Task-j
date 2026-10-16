@@ -46,7 +46,6 @@ app.add_middleware(GZipMiddleware, minimum_size=500)
 bearer = HTTPBearer(auto_error=False)
 
 
-# ------------------------------------------------------------------ auth
 def current_user(cred: HTTPAuthorizationCredentials | None = Depends(bearer), db=Depends(get_db)):
     username = decode_token(cred.credentials) if cred else None
     row = db.execute("SELECT username,name,role FROM users WHERE username=?", (username,)).fetchone() if username else None
@@ -103,7 +102,6 @@ def register(body: RegisterIn, db=Depends(get_db)):
         raise HTTPException(400, "Enter your full name.")
     if db.execute("SELECT 1 FROM users WHERE username=?", (username,)).fetchone():
         raise HTTPException(409, "That username is taken.")
-    # Self sign-up always creates a normal user. Admin role is only given from Users page by an admin.
     db.execute("INSERT INTO users VALUES (?,?,?,?)", (username, name, hash_password(body.password), "User"))
     db.commit()
     return {"username": username, "name": name, "role": "User"}
@@ -124,7 +122,6 @@ def reset_password(body: ResetIn, db=Depends(get_db)):
     return {"ok": True}
 
 
-# ------------------------------------------------------------ user management
 @app.get("/api/users")
 def list_users(_=Depends(current_user), db=Depends(get_db)):
     return [dict(r) for r in db.execute("SELECT username,name,role FROM users ORDER BY rowid")]
@@ -149,12 +146,10 @@ def delete_user(username: str, me=Depends(admin_only), db=Depends(get_db)):
     return {"ok": True}
 
 
-# ---------------------------------------------------------------------- tasks
 def _tab_clause(tab: str):
     if tab not in ("active", "history"):
         raise HTTPException(400, "tab must be 'active' or 'history'")
     cutoff = int(time.time()) - DAY
-    # Active tasks stay for 24h after they were initiated, then they belong to History.
     return ("t.initiated >= ?" if tab == "active" else "t.initiated < ?"), [cutoff]
 
 
@@ -348,7 +343,6 @@ def download_many(body: IdsIn, _=Depends(current_user), db=Depends(get_db)):
     return _zip_response(entries, "ATP11B-selected-files.zip")
 
 
-# ---- serve the built Angular app (used on Render: one service for UI + API) ----
 STATIC_DIR = Path(os.environ["ATP_STATIC_DIR"]).resolve() if os.environ.get("ATP_STATIC_DIR") else None
 if STATIC_DIR and (STATIC_DIR / "index.html").is_file():
 

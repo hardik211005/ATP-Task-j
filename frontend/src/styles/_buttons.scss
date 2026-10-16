@@ -37,7 +37,6 @@
   .btn { height: 42px; padding: 0 16px; }
 }
 
-/* ---- tooltips: any element with data-tip="..." ---- */
 [data-tip] { position: relative; }
 
 [data-tip]::after {
@@ -64,7 +63,6 @@
 [data-tip]:hover::after,
 [data-tip]:focus-visible::after { opacity: 1; visibility: visible; }
 
-/* inside tables the wrapper scrolls, so open the tip to the left instead of below */
 td [data-tip]::after,
 th [data-tip]::after {
   top: 50%;
@@ -76,7 +74,6 @@ th [data-tip]::after { top: calc(100% + 8px); right: auto; left: 0; transform: n
 
 @media (hover: none) { [data-tip]::after { display: none; } }
 
-/* sortable column header */
 .sort-btn {
   display: inline-flex;
   align-items: center;
@@ -91,7 +88,6 @@ th [data-tip]::after { top: calc(100% + 8px); right: auto; left: 0; transform: n
   &:hover { background: var(--icon-hover); }
 }
 
-/* delete action: always visible, red; dimmed (not hidden) when not allowed */
 .icon-btn.del { color: var(--danger); }
 .icon-btn.del:hover:not(:disabled) { background: var(--danger-bg); }
 .icon-btn.del:disabled { opacity: .4; }
